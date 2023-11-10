@@ -21,6 +21,7 @@ EquipmentModel _$EquipmentModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$EquipmentModel {
   String get name => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get assetName => throw _privateConstructorUsedError;
   bool get isSelected => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
@@ -37,7 +38,12 @@ abstract class $EquipmentModelCopyWith<$Res> {
           EquipmentModel value, $Res Function(EquipmentModel) then) =
       _$EquipmentModelCopyWithImpl<$Res, EquipmentModel>;
   @useResult
-  $Res call({String name, String assetName, bool isSelected, bool isLoading});
+  $Res call(
+      {String name,
+      String id,
+      String assetName,
+      bool isSelected,
+      bool isLoading});
 }
 
 /// @nodoc
@@ -54,6 +60,7 @@ class _$EquipmentModelCopyWithImpl<$Res, $Val extends EquipmentModel>
   @override
   $Res call({
     Object? name = null,
+    Object? id = null,
     Object? assetName = null,
     Object? isSelected = null,
     Object? isLoading = null,
@@ -62,6 +69,10 @@ class _$EquipmentModelCopyWithImpl<$Res, $Val extends EquipmentModel>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       assetName: null == assetName
           ? _value.assetName
@@ -87,7 +98,12 @@ abstract class _$$EquipmentModelImplCopyWith<$Res>
       __$$EquipmentModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String assetName, bool isSelected, bool isLoading});
+  $Res call(
+      {String name,
+      String id,
+      String assetName,
+      bool isSelected,
+      bool isLoading});
 }
 
 /// @nodoc
@@ -102,6 +118,7 @@ class __$$EquipmentModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? id = null,
     Object? assetName = null,
     Object? isSelected = null,
     Object? isLoading = null,
@@ -110,6 +127,10 @@ class __$$EquipmentModelImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       assetName: null == assetName
           ? _value.assetName
@@ -132,6 +153,7 @@ class __$$EquipmentModelImplCopyWithImpl<$Res>
 class _$EquipmentModelImpl implements _EquipmentModel {
   const _$EquipmentModelImpl(
       {required this.name,
+      required this.id,
       required this.assetName,
       required this.isSelected,
       this.isLoading = false});
@@ -142,6 +164,8 @@ class _$EquipmentModelImpl implements _EquipmentModel {
   @override
   final String name;
   @override
+  final String id;
+  @override
   final String assetName;
   @override
   final bool isSelected;
@@ -151,7 +175,7 @@ class _$EquipmentModelImpl implements _EquipmentModel {
 
   @override
   String toString() {
-    return 'EquipmentModel(name: $name, assetName: $assetName, isSelected: $isSelected, isLoading: $isLoading)';
+    return 'EquipmentModel(name: $name, id: $id, assetName: $assetName, isSelected: $isSelected, isLoading: $isLoading)';
   }
 
   @override
@@ -160,6 +184,7 @@ class _$EquipmentModelImpl implements _EquipmentModel {
         (other.runtimeType == runtimeType &&
             other is _$EquipmentModelImpl &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.assetName, assetName) ||
                 other.assetName == assetName) &&
             (identical(other.isSelected, isSelected) ||
@@ -171,7 +196,7 @@ class _$EquipmentModelImpl implements _EquipmentModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, assetName, isSelected, isLoading);
+      Object.hash(runtimeType, name, id, assetName, isSelected, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -191,6 +216,7 @@ class _$EquipmentModelImpl implements _EquipmentModel {
 abstract class _EquipmentModel implements EquipmentModel {
   const factory _EquipmentModel(
       {required final String name,
+      required final String id,
       required final String assetName,
       required final bool isSelected,
       final bool isLoading}) = _$EquipmentModelImpl;
@@ -200,6 +226,8 @@ abstract class _EquipmentModel implements EquipmentModel {
 
   @override
   String get name;
+  @override
+  String get id;
   @override
   String get assetName;
   @override

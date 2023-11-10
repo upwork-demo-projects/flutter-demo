@@ -101,7 +101,10 @@ class EquipmentSelectionScreenConsumer extends StatelessWidget {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                            BlocProvider.of<EquipmentCubit>(
+                                                  context).toggleEquipmentLoader(state.availableEquipment[index]);
+                                        },
                                         icon: const Icon(
                                           Icons.replay_outlined,
                                           color: Colors.white,

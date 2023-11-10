@@ -24,8 +24,8 @@ class EquipmentCubit extends Cubit<EquipmentState> {
 
     availableEquipment.forEach((equipment) {
       availableEquipment = availableEquipment
-          .map((e) => e == equipment
-              ? e.copyWith(isSelected: selectedEquipment.contains(e))
+          .map((e) => selectedEquipment.contains(e.id)
+              ? e.copyWith(isSelected: true)
               : e)
           .toList();
     });
@@ -33,7 +33,6 @@ class EquipmentCubit extends Cubit<EquipmentState> {
     // Update the state
     emit(state.copyWith(
       availableEquipment: availableEquipment,
-      selectedEquipment: selectedEquipment,
     ));
   }
 
@@ -41,17 +40,6 @@ class EquipmentCubit extends Cubit<EquipmentState> {
     _equipmentService().fetchAvailableEquipment().then((availableEquipment) {
       emit(state.copyWith(availableEquipment: availableEquipment));
     });
-  }
-
-  void loadSelectedEquipment() async {
-    final selectedEquipment =
-        await _selectedEquipmentService().getSelectedEquipment();
-    emit(state.copyWith(selectedEquipment: selectedEquipment));
-  }
-
-  void saveSelectedEquipment(List<EquipmentModel> selectedEquipment) {
-    _selectedEquipmentService().saveSelectedEquipment(selectedEquipment);
-    emit(state.copyWith(selectedEquipment: selectedEquipment));
   }
 
   Future<void> showSnackBar(
@@ -65,27 +53,46 @@ class EquipmentCubit extends Cubit<EquipmentState> {
   }
 
   Future<void> toggleEquipmentSelection(EquipmentModel equipment) async {
-    final updatedEquipmentList = state.availableEquipment.map((e) {
-      if (e == equipment) {
-        return e.copyWith(isSelected: !e.isSelected);
-      } else {
-        return e;
+    int count = 0;
+    if (!equipment.isSelected) {
+      for (int i = 0; i < state.availableEquipment.length; i++) {
+        if (state.availableEquipment[i].isSelected) {
+          count++;
+        }
       }
-    }).toList();
-
-    final List<EquipmentModel> updatedSelectedEquipment =
-        List.from(state.selectedEquipment);
-    if (updatedSelectedEquipment.contains(equipment)) {
-      updatedSelectedEquipment.remove(equipment);
-    } else {
-      updatedSelectedEquipment.add(equipment);
+      if (count >= 3) {
+        showSnackBar(showMessage: '', isError: true);
+        emit(state.copyWith(noUse: !state.noUse));
+        return;
+      }
     }
+    List<String> selectedIds = [];
+    for (int i = 0; i < state.availableEquipment.length; i++) {
+      if (equipment.id == state.availableEquipment[i].id) {
+        state.availableEquipment[i] = state.availableEquipment[i]
+            .copyWith(isSelected: !state.availableEquipment[i].isSelected);
+      }
+      if (state.availableEquipment[i].isSelected) {
+        selectedIds.add(state.availableEquipment[i].id);
+      }
+    }
+    _selectedEquipmentService().saveSelectedEquipment(selectedIds);
+    emit(state.copyWith(noUse: !state.noUse));
+  }
 
-    saveSelectedEquipment(updatedSelectedEquipment);
-
-    emit(state.copyWith(
-      availableEquipment: updatedEquipmentList,
-      selectedEquipment: updatedSelectedEquipment,
-    ));
+  Future<void> toggleEquipmentLoader(EquipmentModel equipment) async {
+    int showLoaderAt = 0;
+    for (int i = 0; i < state.availableEquipment.length; i++) {
+      if (equipment.id == state.availableEquipment[i].id) {
+        showLoaderAt = i;
+      }
+    }
+    state.availableEquipment[showLoaderAt] =
+        state.availableEquipment[showLoaderAt].copyWith(isLoading: true);
+    emit(state.copyWith(noUse: !state.noUse));
+    await Future.delayed(Duration(seconds: 1));
+    state.availableEquipment[showLoaderAt] =
+        state.availableEquipment[showLoaderAt].copyWith(isLoading: false);
+    emit(state.copyWith(noUse: !state.noUse));
   }
 }
