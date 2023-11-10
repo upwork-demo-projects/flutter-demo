@@ -55,6 +55,10 @@ class EquipmentSelectionScreenConsumer extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         return ModalProgressHUD(
+                          progressIndicator: const CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.grey),
+                          ),
                           inAsyncCall:
                               state.availableEquipment[index].isLoading,
                           child: InkWell(
@@ -92,7 +96,7 @@ class EquipmentSelectionScreenConsumer extends StatelessWidget {
                                 SizedBox(height: 1.w),
                                 Text(
                                   state.availableEquipment[index].name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600),
                                 ),
@@ -102,8 +106,10 @@ class EquipmentSelectionScreenConsumer extends StatelessWidget {
                                   children: [
                                     IconButton(
                                         onPressed: () {
-                                            BlocProvider.of<EquipmentCubit>(
-                                                  context).toggleEquipmentLoader(state.availableEquipment[index]);
+                                          BlocProvider.of<EquipmentCubit>(
+                                                  context)
+                                              .toggleEquipmentLoader(state
+                                                  .availableEquipment[index]);
                                         },
                                         icon: const Icon(
                                           Icons.replay_outlined,
