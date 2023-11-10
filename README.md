@@ -1,16 +1,44 @@
 # equipment_app
 
-A new Flutter project.
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) version 3.13.4
+- [Git](https://git-scm.com/downloads)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. **Clone the Repository:**
 
-A few resources to get you started if this is your first Flutter project:
+    ```bash
+    git clone https://github.com/upwork-demo-projects/flutter-demo.git
+    cd flutter-demo
+    ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. **Switch to Flutter Version 3.13.4:**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    ```bash
+    flutter version 3.13.4
+    ```
+
+3. **Get Dependencies:**
+
+    ```bash
+    flutter pub get
+    ```
+
+4. **Run the Application:**
+
+    - Connect your device (physical device or emulator).
+    ```bash
+    flutter run
+    ```
+
+    This command will build and run the Flutter app on your connected device.
+
+    ```
+5. **Demo:**
+    To see the project in action click on following link
+    https://firebasestorage.googleapis.com/v0/b/dad-app-dev.appspot.com/o/final.mp4?alt=media&token=532a15b5-9441-4f02-9a93-bd1cc8c43f8f
+
