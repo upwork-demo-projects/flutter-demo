@@ -53,46 +53,45 @@ class EquipmentCubit extends Cubit<EquipmentState> {
   }
 
   Future<void> toggleEquipmentSelection(EquipmentModel equipment) async {
-    int count = 0;
-    if (!equipment.isSelected) {
-      for (int i = 0; i < state.availableEquipment.length; i++) {
-        if (state.availableEquipment[i].isSelected) {
-          count++;
-        }
-      }
-      if (count >= 3) {
-        showSnackBar(showMessage: '', isError: true);
-        emit(state.copyWith(noUse: !state.noUse));
-        return;
-      }
+    final selectedEquipment =
+        state.availableEquipment.where((e) => e.isSelected).toList();
+
+    if (!equipment.isSelected && selectedEquipment.length >= 3) {
+      showSnackBar(showMessage: '', isError: true);
+      emit(state.copyWith(noUse: !state.noUse));
+      return;
     }
-    List<String> selectedIds = [];
-    for (int i = 0; i < state.availableEquipment.length; i++) {
-      if (equipment.id == state.availableEquipment[i].id) {
-        state.availableEquipment[i] = state.availableEquipment[i]
-            .copyWith(isSelected: !state.availableEquipment[i].isSelected);
+
+    state.availableEquipment.forEach((e) {
+      if (e.id == equipment.id) {
+        state.availableEquipment[state.availableEquipment.indexOf(e)] =
+            e.copyWith(isSelected: !e.isSelected);
       }
-      if (state.availableEquipment[i].isSelected) {
-        selectedIds.add(state.availableEquipment[i].id);
-      }
-    }
+    });
+
+    final selectedIds = state.availableEquipment
+        .where((e) => e.isSelected)
+        .map((e) => e.id)
+        .toList();
     _selectedEquipmentService().saveSelectedEquipment(selectedIds);
+
     emit(state.copyWith(noUse: !state.noUse));
   }
 
   Future<void> toggleEquipmentLoader(EquipmentModel equipment) async {
-    int showLoaderAt = 0;
-    for (int i = 0; i < state.availableEquipment.length; i++) {
-      if (equipment.id == state.availableEquipment[i].id) {
-        showLoaderAt = i;
-      }
+    int showLoaderAt =
+        state.availableEquipment.indexWhere((e) => e.id == equipment.id);
+
+    if (showLoaderAt != -1) {
+      state.availableEquipment[showLoaderAt] =
+          state.availableEquipment[showLoaderAt].copyWith(isLoading: true);
+      emit(state.copyWith(noUse: !state.noUse));
+
+      await Future.delayed(const Duration(seconds: 1));
+
+      state.availableEquipment[showLoaderAt] =
+          state.availableEquipment[showLoaderAt].copyWith(isLoading: false);
+      emit(state.copyWith(noUse: !state.noUse));
     }
-    state.availableEquipment[showLoaderAt] =
-        state.availableEquipment[showLoaderAt].copyWith(isLoading: true);
-    emit(state.copyWith(noUse: !state.noUse));
-    await Future.delayed(Duration(seconds: 1));
-    state.availableEquipment[showLoaderAt] =
-        state.availableEquipment[showLoaderAt].copyWith(isLoading: false);
-    emit(state.copyWith(noUse: !state.noUse));
   }
 }
