@@ -28,7 +28,7 @@ Before you begin, ensure you have the following installed:
     flutter pub get
     ```
 
-4. **Run the Application:**
+4.  **Run the Application:**
 
     - Connect your device (physical device or emulator).
     ```bash
@@ -37,8 +37,7 @@ Before you begin, ensure you have the following installed:
 
     This command will build and run the Flutter app on your connected device.
 
-    ```
 5. **Demo:**
-    To see the project in action click on following link
+    To see the project in action click on the link
     https://firebasestorage.googleapis.com/v0/b/dad-app-dev.appspot.com/o/final.mp4?alt=media&token=532a15b5-9441-4f02-9a93-bd1cc8c43f8f
 
