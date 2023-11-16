@@ -42,3 +42,6 @@ Before you begin, ensure you have the following installed:
     ![To see the project in action click on the link]
     (https://firebasestorage.googleapis.com/v0/b/dad-app-dev.appspot.com/o/final.gif?alt=media&token=25cfd5fd-4f50-4286-8c50-c9d02a265648)
 
+6. **TIME SPENT:**
+   ~ 4hours
+
